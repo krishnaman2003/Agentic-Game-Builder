@@ -241,32 +241,6 @@ Generated files appear in `./output/` on the host via the volume mount. Open `ou
 
 ---
 
-## Trade-Offs Made
-
-| Decision | Rationale | Trade-Off |
-|----------|-----------|-----------|
-| **Ollama over OpenAI API** | Zero cost, fully private, no rate limits | Requires local hardware; model quality depends on available VRAM/RAM |
-| **OpenAI SDK as Ollama client** | Minimal code — only `base_url` changes to switch backends | Tied to Ollama's API compatibility layer |
-| **Vanilla JS + HTML5 Canvas** | No external dependencies; game works offline by opening a single HTML file | Less capable than Phaser for physics-heavy or sprite-based games |
-| **Single `game.js` file** | Simple, readable, easy to inspect and debug | Does not scale for larger games with many systems |
-| **Strict file delimiters in builder** | Reliable, regex-parseable output format | If the LLM deviates from the format, the pipeline fails (no retry) |
-| **No game validation** | Keeps the pipeline simple and fast | Generated game may have logic errors that require manual debugging |
-| **CLI interface** | No extra dependencies, works in Docker | Less accessible for non-technical users |
-
----
-
-## Improvements with More Time
-
-1. **Automatic game validation** — Run the generated `index.html` in a headless browser (Playwright/Puppeteer) and report any JavaScript errors back to the agent for self-correction.
-2. **Retry and self-healing** — If the builder produces malformed output or the game fails validation, re-prompt the LLM with the error message and ask it to fix the issue.
-3. **Phaser support** — Allow the Planner to choose Phaser.js when the game idea involves physics, sprites, or tilemaps, with the Builder generating the appropriate boilerplate.
-4. **Web UI** — Replace the CLI with a simple Flask or FastAPI web interface so non-technical users can interact with the agent through a browser.
-5. **Streaming output** — Stream LLM responses in real time so the user sees progress during the (sometimes slow) code generation phase.
-6. **Conversation memory** — Save the full clarification history so users can refine and iterate on the same game idea across multiple runs.
-7. **Asset generation** — Integrate an image generation API to produce sprites, backgrounds, and icons dynamically based on the game plan.
-
----
-
 ## Dependencies
 
 ```
