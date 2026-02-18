@@ -251,5 +251,3 @@ python-dotenv>=1.0.0 # Loads .env configuration at startup
 No other external libraries are required. The generated games use only browser-native APIs (HTML5 Canvas, `requestAnimationFrame`).
 
 ---
-
-*Assignment project — February 2026*
